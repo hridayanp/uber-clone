@@ -57,6 +57,17 @@ const SignUp = () => {
       });
 
       if (completeSignUp.status === 'complete') {
+        const res = await fetchAPI('/(api)/user', {
+          method: 'POST',
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            clerkId: completeSignUp.createdUserId,
+          }),
+        });
+
+        console.log('res', res);
+
         await setActive({ session: completeSignUp.createdSessionId });
         setVerification({
           ...verification,
